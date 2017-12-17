@@ -1,0 +1,130 @@
+{
+  "schemaVersion": 39,
+  "id": "e344e8c6-4ae0-4403-a17e-32711b129071",
+  "activities": [
+    {
+      "id": "65f0a71f-795c-45e7-b590-7cf742291608",
+      "name": "BostonWeather",
+      "blocks": [
+        {
+          "id": "5287cc92-a371-4c01-8b32-ad5867dcf458",
+          "type": "Microsoft.DPrep.DataSourceBlock",
+          "arguments": {
+            "path": {
+              "target": 0,
+              "resourceDetails": [
+                {
+                  "path": "./raw/BostonWeather.csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "a790e5da-18a5-4d32-81b3-55948697cc1e",
+          "type": "Microsoft.DPrep.ParseDelimitedBlock",
+          "arguments": {
+            "preview": false,
+            "columnHeadersMode": 1,
+            "separator": ",",
+            "fileEncoding": 0,
+            "skipRowsMode": 0,
+            "handleQuotedLineBreaks": false
+          }
+        },
+        {
+          "id": "85e39913-d54c-4914-9665-2bcadc1b68f3",
+          "type": "Microsoft.DPrep.SetColumnTypesBlock",
+          "arguments": {
+            "columnConversion": [
+              {
+                "columnId": "DATE",
+                "typeProperty": 4,
+                "typeArguments": {
+                  "dateTimeFormat": "%m/%d/%Y %H:%M"
+                }
+              }
+            ]
+          }
+        },
+        {
+          "id": "65a2ad58-cc10-42c7-acb9-12d123816e2b",
+          "type": "Microsoft.DPrep.SampleBlock",
+          "arguments": {
+            "samples": [
+              {
+                "sampleId": "b412ed76-6899-4373-985c-8ece21c2679f",
+                "sampleRevision": "41124c97-b584-4981-8a04-f1ac564c1d1e",
+                "sampleName": "Full File",
+                "sampleRunner": {
+                  "id": null,
+                  "type": 0
+                },
+                "remoteGeneratorProperties": {},
+                "sampleStrategy": 3,
+                "topArguments": {
+                  "sampleCount": 10000
+                },
+                "randomNArguments": {
+                  "sampleCount": 10000
+                },
+                "randomPercentArguments": {
+                  "probability": 0.1
+                },
+                "allowAutoGen": true,
+                "isDisabled": false
+              }
+            ],
+            "activeSample": "b412ed76-6899-4373-985c-8ece21c2679f"
+          }
+        },
+        {
+          "id": "40dc5c9f-a81a-43b9-bdee-10a9c77cd8d2",
+          "type": "Microsoft.DPrep.HandlePathColumnBlock",
+          "arguments": {
+            "pathColumnOperation": 0
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "bbf81bfd-1a80-46b5-9894-13286f194607",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "65f0a71f-795c-45e7-b590-7cf742291608",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        },
+        {
+          "id": "89d56bfa-045f-4b2d-b403-5d867114b67c",
+          "type": "Microsoft.DPrep.DataProfileInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "65f0a71f-795c-45e7-b590-7cf742291608",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 0,
+              "referencedStepId": "40dc5c9f-a81a-43b9-bdee-10a9c77cd8d2",
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        }
+      ]
+    }
+  ],
+  "runConfigurations": []
+}

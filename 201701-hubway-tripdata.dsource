@@ -1,0 +1,227 @@
+{
+  "schemaVersion": 39,
+  "id": "b1133bae-bc01-44eb-b58c-a3ca2d1bbb16",
+  "activities": [
+    {
+      "id": "4cdaa353-9450-41a5-83e8-0d67eaab250b",
+      "name": "201701-hubway-tripdata",
+      "blocks": [
+        {
+          "id": "71be5800-bed9-4f13-86f2-298c0040a558",
+          "type": "Microsoft.DPrep.DataSourceBlock",
+          "arguments": {
+            "path": {
+              "target": 0,
+              "resourceDetails": [
+                {
+                  "path": "./raw/201701-hubway-tripdata.csv"
+                }
+              ]
+            }
+          }
+        },
+        {
+          "id": "b838a661-05d0-4b31-b77a-f387fbc93549",
+          "type": "Microsoft.DPrep.ParseDelimitedBlock",
+          "arguments": {
+            "preview": false,
+            "columnHeadersMode": 1,
+            "separator": ",",
+            "fileEncoding": 0,
+            "skipRowsMode": 0,
+            "handleQuotedLineBreaks": false
+          }
+        },
+        {
+          "id": "fd41227b-acdb-440a-9491-10f2cfd77805",
+          "type": "Microsoft.DPrep.SetColumnTypesBlock",
+          "arguments": {
+            "columnConversion": [
+              {
+                "columnId": "start station id",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "end station id",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "end station longitude",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "start station longitude",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "end station latitude",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "tripduration",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "starttime",
+                "typeProperty": 4,
+                "typeArguments": {
+                  "dateTimeFormat": "%Y-%m-%d %H:%M:%S"
+                }
+              },
+              {
+                "columnId": "stoptime",
+                "typeProperty": 4,
+                "typeArguments": {
+                  "dateTimeFormat": "%Y-%m-%d %H:%M:%S"
+                }
+              },
+              {
+                "columnId": "start station latitude",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "bikeid",
+                "typeProperty": 3,
+                "typeArguments": {}
+              },
+              {
+                "columnId": "gender",
+                "typeProperty": 3,
+                "typeArguments": {}
+              }
+            ]
+          }
+        },
+        {
+          "id": "dec605d4-f8bd-4beb-9bdb-ca8f446e4844",
+          "type": "Microsoft.DPrep.SampleBlock",
+          "arguments": {
+            "samples": [
+              {
+                "sampleId": "26dcd304-7ad3-4608-a36f-516cf4e5ce35",
+                "sampleRevision": "860735b4-854b-4700-8b8a-27e8a6e065c5",
+                "sampleName": "Full File",
+                "sampleRunner": {
+                  "id": null,
+                  "type": 0
+                },
+                "remoteGeneratorProperties": {},
+                "sampleStrategy": 3,
+                "topArguments": {
+                  "sampleCount": 10000
+                },
+                "randomNArguments": {
+                  "sampleCount": 10000
+                },
+                "randomPercentArguments": {
+                  "probability": 0.1
+                },
+                "allowAutoGen": true,
+                "isDisabled": false
+              }
+            ],
+            "activeSample": "26dcd304-7ad3-4608-a36f-516cf4e5ce35"
+          }
+        },
+        {
+          "id": "fbda6942-2bb2-40ee-b4f6-30b8c161b904",
+          "type": "Microsoft.DPrep.HandlePathColumnBlock",
+          "arguments": {
+            "pathColumnOperation": 0
+          }
+        }
+      ],
+      "inspectors": [
+        {
+          "id": "ff495cc9-72f0-4d57-97cc-fb3f7bcc45cb",
+          "type": "Microsoft.DPrep.DataQualityInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "4cdaa353-9450-41a5-83e8-0d67eaab250b",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": false
+        },
+        {
+          "id": "4e29442c-bfe9-4129-ab68-d3cab044e4f4",
+          "type": "Microsoft.DPrep.DataProfileInspector",
+          "arguments": {},
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "4cdaa353-9450-41a5-83e8-0d67eaab250b",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 0,
+              "referencedStepId": "fbda6942-2bb2-40ee-b4f6-30b8c161b904",
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        },
+        {
+          "id": "2e4fafe0-9f5d-4c74-8b3d-06a8f0a00376",
+          "type": "Microsoft.DPrep.ColumnStatsInspector",
+          "arguments": {
+            "columnId": "tripduration"
+          },
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "4cdaa353-9450-41a5-83e8-0d67eaab250b",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        },
+        {
+          "id": "03eb2a7d-588f-4620-ba78-90e22afbd46b",
+          "type": "Microsoft.DPrep.HistogramInspector",
+          "arguments": {
+            "columnId": "tripduration",
+            "numberOfBreaks": 6,
+            "defaultBucketing": true,
+            "haloEffect": true,
+            "densityPlot": true,
+            "logScale": false
+          },
+          "reference": {
+            "referenceType": 0,
+            "referenceContainerPath": null,
+            "referencedActivityId": "4cdaa353-9450-41a5-83e8-0d67eaab250b",
+            "referencedBranchId": null,
+            "referencedStep": {
+              "stepReferenceType": 1,
+              "referencedStepId": null,
+              "fallback": 1
+            },
+            "anonymousSteps": null
+          },
+          "isBackground": true
+        }
+      ]
+    }
+  ],
+  "runConfigurations": []
+}
